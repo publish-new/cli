@@ -1,6 +1,6 @@
 {
   "name": "@publish-new/cli",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "CLI and agent toolkit for publish.new — publish, discover, and buy digital artifacts with x402 micropayments",
   "type": "module",
   "bin": {
