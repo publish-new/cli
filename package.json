@@ -1,0 +1,62 @@
+{
+  "name": "@publish-new/cli",
+  "version": "0.1.0",
+  "description": "CLI and agent toolkit for publish.new — publish, discover, and buy digital artifacts with x402 micropayments",
+  "type": "module",
+  "bin": {
+    "publish": "./dist/bin.js"
+  },
+  "main": "./dist/bin.js",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "start": "node dist/bin.js",
+    "tsc": "tsc --noEmit",
+    "test": "vitest run",
+    "test:unit": "vitest run tests/unit",
+    "test:integration": "vitest run tests/integration",
+    "lint": "eslint src/ --ext .ts --quiet",
+    "lint:fix": "eslint src/ --ext .ts --fix --quiet",
+    "format": "prettier --write 'src/**/*.ts'",
+    "prepublishOnly": "npm run build",
+    "prepare": "husky"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/publish-new/cli.git"
+  },
+  "keywords": [
+    "publish.new",
+    "x402",
+    "micropayments",
+    "cli",
+    "agents"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "commander": "^13.0.0",
+    "mppx": "^0.4.7",
+    "picocolors": "^1.1.0",
+    "viem": "^2.47.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@typescript-eslint/eslint-plugin": "^7.0.0",
+    "@typescript-eslint/parser": "^7.0.0",
+    "eslint": "^8.0.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.4.0",
+    "prettier": "^3.0.0",
+    "typescript": "^5.7.0",
+    "vitest": "^3.0.0"
+  }
+}
