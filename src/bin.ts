@@ -27,7 +27,7 @@ program
   .name("publish")
   .description("Publish, discover, and buy digital artifacts on publish.new")
   .version(version)
-  .option("--api-url <url>", "API base URL", "https://www.publish.new")
+  .option("--api-url <url>", "API base URL", "https://publish.new")
   .option("--json", "Output machine-readable JSON", false)
   .option("--quiet", "Suppress human-friendly messages", false)
   .hook("preAction", (thisCommand) => {

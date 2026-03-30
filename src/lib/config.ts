@@ -100,4 +100,4 @@ export function getCurrencyByAddress(
 }
 
 /** Default publish.new API base URL. */
-export const DEFAULT_API_URL = "https://www.publish.new"
+export const DEFAULT_API_URL = "https://publish.new"

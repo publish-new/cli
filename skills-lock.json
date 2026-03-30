@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "skills": {
+    "publish-new": {
+      "source": "publish-new/cli",
+      "sourceType": "github",
+      "computedHash": "6d9ef2e6d17144cbc49decfb8e8d79d3fd1c6cd4111d6780ad788c7ffa773958"
+    }
+  }
+}

@@ -97,7 +97,7 @@ Commands are safe to retry:
 |------|-------------|
 | `--json` | Machine-readable JSON output |
 | `--quiet` | Suppress human-friendly messages |
-| `--api-url <url>` | Override API base URL (default: https://www.publish.new) |
+| `--api-url <url>` | Override API base URL (default: https://publish.new) |
 
 ---
 
@@ -105,7 +105,7 @@ Commands are safe to retry:
 
 Use these endpoints directly when you don't have CLI access (e.g. Claude web sessions, serverless functions, or any HTTP client).
 
-Base URL: `https://www.publish.new`
+Base URL: `https://publish.new`
 
 ### POST /api/artifact — Create an artifact
 
@@ -121,7 +121,7 @@ Content-Type: `multipart/form-data`
 | `description` | no | Short description |
 
 ```bash
-curl -X POST https://www.publish.new/api/artifact \
+curl -X POST https://publish.new/api/artifact \
   -F 'title=My Article' \
   -F 'description=A short summary' \
   -F 'content=# Hello World\n\nThis is my article.' \
@@ -131,7 +131,7 @@ curl -X POST https://www.publish.new/api/artifact \
 
 File upload:
 ```bash
-curl -X POST https://www.publish.new/api/artifact \
+curl -X POST https://publish.new/api/artifact \
   -F 'title=Premium Report' \
   -F 'file=@./report.pdf' \
   -F 'price=5.00' \
@@ -155,7 +155,7 @@ Response (201):
 }
 ```
 
-The artifact is now live at `https://www.publish.new/<slug>`.
+The artifact is now live at `https://publish.new/<slug>`.
 
 ### GET /api/artifact — List artifacts
 
@@ -166,7 +166,7 @@ The artifact is now live at `https://www.publish.new/<slug>`.
 | `search` | — | Search title and description |
 
 ```bash
-curl 'https://www.publish.new/api/artifact?limit=10&search=machine+learning'
+curl 'https://publish.new/api/artifact?limit=10&search=machine+learning'
 ```
 
 Response (200):
@@ -195,7 +195,7 @@ Response (200):
 ### GET /api/artifact/:slug — Get artifact metadata
 
 ```bash
-curl https://www.publish.new/api/artifact/my-article-a1b2c3d4
+curl https://publish.new/api/artifact/my-article-a1b2c3d4
 ```
 
 Response (200):
@@ -221,7 +221,7 @@ Errors: 404 if not found, 400 if invalid slug format.
 ### GET /api/artifact/:slug/price — Get price
 
 ```bash
-curl https://www.publish.new/api/artifact/my-article-a1b2c3d4/price
+curl https://publish.new/api/artifact/my-article-a1b2c3d4/price
 ```
 
 Response (200):
@@ -236,7 +236,7 @@ Response (200):
 This endpoint is gated by x402. A plain GET without payment headers returns `402 Payment Required`. The x402 protocol handles payment automatically when using an x402-compatible client like [mppx](https://www.npmjs.com/package/mppx).
 
 ```bash
-curl https://www.publish.new/api/artifact/my-article-a1b2c3d4/content?chain=base
+curl https://publish.new/api/artifact/my-article-a1b2c3d4/content?chain=base
 ```
 
 | Param | Default | Description |
@@ -307,7 +307,7 @@ publish new \
 
 **HTTP:**
 ```bash
-curl -X POST https://www.publish.new/api/artifact \
+curl -X POST https://publish.new/api/artifact \
   -F 'title=Q1 Market Analysis' \
   -F 'description=Comprehensive Q1 2026 market analysis' \
   -F 'file=@./analysis.pdf' \
@@ -329,10 +329,10 @@ publish buy "$SLUG" --chain=base --output=./dataset.csv
 **HTTP:**
 ```bash
 # Search for artifacts
-curl -s 'https://www.publish.new/api/artifact?search=dataset&limit=5' | jq '.artifacts[0].slug'
+curl -s 'https://publish.new/api/artifact?search=dataset&limit=5' | jq '.artifacts[0].slug'
 
 # Check price
-curl -s https://www.publish.new/api/artifact/SLUG/price | jq '.price'
+curl -s https://publish.new/api/artifact/SLUG/price | jq '.price'
 
 # Buy requires an x402-compatible client (mppx) for automatic payment
 ```
@@ -341,7 +341,7 @@ curl -s https://www.publish.new/api/artifact/SLUG/price | jq '.price'
 
 **HTTP:**
 ```bash
-curl -X POST https://www.publish.new/api/artifact \
+curl -X POST https://publish.new/api/artifact \
   -F 'title=Daily Market Brief' \
   -F 'content=# Market Brief\n\nToday the market moved significantly...' \
   -F 'price=0.50' \
@@ -353,7 +353,7 @@ curl -X POST https://www.publish.new/api/artifact \
 Before creating, search for an existing match:
 ```bash
 # Check if artifact already exists
-EXISTING=$(curl -s 'https://www.publish.new/api/artifact?search=My+Title&limit=5')
+EXISTING=$(curl -s 'https://publish.new/api/artifact?search=My+Title&limit=5')
 # Parse results and check for matching title + price + wallet_address
 # If found, use the existing slug instead of creating a duplicate
 ```
@@ -361,7 +361,7 @@ EXISTING=$(curl -s 'https://www.publish.new/api/artifact?search=My+Title&limit=5
 Before buying, check if content is already accessible:
 ```bash
 # Probe content endpoint without payment
-STATUS=$(curl -s -o /dev/null -w '%{http_code}' https://www.publish.new/api/artifact/SLUG/content)
+STATUS=$(curl -s -o /dev/null -w '%{http_code}' https://publish.new/api/artifact/SLUG/content)
 # If 200, content is already unlocked — no payment needed
 # If 402, proceed with x402 payment
 ```

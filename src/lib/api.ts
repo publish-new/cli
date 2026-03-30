@@ -57,7 +57,7 @@ let baseUrlOverride: string | undefined
 /**
  * Overrides the API base URL for all subsequent requests.
  * Used by the `--api-url` CLI flag.
- * @param url - The base URL to use (e.g. "https://www.publish.new")
+ * @param url - The base URL to use (e.g. "https://publish.new")
  */
 export function setBaseUrl(url: string): void {
   baseUrlOverride = url

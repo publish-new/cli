@@ -1,6 +1,6 @@
 # @publish-new/cli
 
-CLI and agent toolkit for [publish.new](https://www.publish.new) — publish, discover, and buy digital artifacts with USDC micropayments.
+CLI and agent toolkit for [publish.new](https://publish.new) — publish, discover, and buy digital artifacts with USDC micropayments.
 
 ## Install
 
@@ -113,7 +113,7 @@ publish buy my-article-a1b2c3d4 --dry-run
 |------|-------------|
 | `--json` | Machine-readable JSON output on stdout |
 | `--quiet` | Suppress human-friendly messages on stderr |
-| `--api-url <url>` | Override API base URL (default: `https://www.publish.new`) |
+| `--api-url <url>` | Override API base URL (default: `https://publish.new`) |
 
 ## Agent usage
 

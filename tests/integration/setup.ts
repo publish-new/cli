@@ -54,7 +54,7 @@ export function runJson(
   }
 }
 
-export const API_URL = process.env.PUBLISH_NEW_URL || "https://www.publish.new"
+export const API_URL = process.env.PUBLISH_NEW_URL || "https://publish.new"
 
 export const TEST_WALLET =
   process.env.TEST_WALLET || "0x0000000000000000000000000000000000000001"

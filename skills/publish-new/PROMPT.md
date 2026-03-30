@@ -43,7 +43,7 @@ publish buy SLUG --chain=base --output=./file.pdf
 
 ## HTTP API (no shell needed)
 
-Base URL: `https://www.publish.new`
+Base URL: `https://publish.new`
 
 ### Create artifact
 ```
@@ -62,7 +62,7 @@ Fields:
 
 Example:
 ```bash
-curl -X POST https://www.publish.new/api/artifact \
+curl -X POST https://publish.new/api/artifact \
   -F 'title=My Article' \
   -F 'content=# Hello World' \
   -F 'price=1.50' \
@@ -70,7 +70,7 @@ curl -X POST https://www.publish.new/api/artifact \
 ```
 
 Response (201): `{ "slug": "my-article-a1b2c3d4", "price": "1.500000", ... }`
-Live at: `https://www.publish.new/<slug>`
+Live at: `https://publish.new/<slug>`
 
 ### List artifacts
 ```
@@ -119,7 +119,7 @@ Status codes: 400 (bad input), 402 (payment required), 404 (not found), 500 (ser
 ## Workflow: Publish and sell
 
 **CLI:** `publish new --price=2 --author=0xWALLET --file=./output.pdf --title="Title" --json`
-**HTTP:** `curl -X POST https://www.publish.new/api/artifact -F 'title=Title' -F 'file=@./output.pdf' -F 'price=2' -F 'walletAddress=0xWALLET'`
+**HTTP:** `curl -X POST https://publish.new/api/artifact -F 'title=Title' -F 'file=@./output.pdf' -F 'price=2' -F 'walletAddress=0xWALLET'`
 
 Share the returned slug or URL.
 
@@ -131,8 +131,8 @@ Share the returned slug or URL.
 3. `publish buy SLUG --chain=base --output=./file.pdf`
 
 **HTTP:**
-1. `curl 'https://www.publish.new/api/artifact?search=topic'` → get slug
-2. `curl https://www.publish.new/api/artifact/SLUG/price` → check price
-3. `curl https://www.publish.new/api/artifact/SLUG/content?chain=base` → buy (requires x402 client)
+1. `curl 'https://publish.new/api/artifact?search=topic'` → get slug
+2. `curl https://publish.new/api/artifact/SLUG/price` → check price
+3. `curl https://publish.new/api/artifact/SLUG/content?chain=base` → buy (requires x402 client)
 
 Always use `--json` with the CLI for structured output.

@@ -181,7 +181,7 @@ Examples:
           const apiUrl =
             program.opts().apiUrl ||
             process.env.PUBLISH_NEW_URL ||
-            "https://www.publish.new"
+            "https://publish.new"
           printSuccess(`URL: ${apiUrl}/${artifact.slug}`, globalOpts)
         }
       } catch (err) {
