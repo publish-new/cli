@@ -38,6 +38,7 @@ npx @publish-new/cli list
 ```bash
 publish new --price=1.50 --author=0xYOUR_WALLET --content="# My Article" --title="My Article" --json
 publish new --price=5.00 --author=0xYOUR_WALLET --file=./report.pdf --title="Premium Report" --json
+publish new --price=1.50 --author=0xYOUR_WALLET --content="# My Article" --title="My Article" --preview-image=./cover.png --json
 echo "# Hello" | publish new --price=0.50 --author=0xYOUR_WALLET --content=- --json
 ```
 
@@ -119,6 +120,7 @@ Content-Type: `multipart/form-data`
 | `file` | one of content/file | File upload (max 100MB) |
 | `title` | no | Artifact title (used to generate URL slug) |
 | `description` | no | Short description |
+| `previewImage` | no | Preview image file (JPEG, PNG, GIF, WebP) |
 
 ```bash
 curl -X POST https://publish.new/api/artifact \
@@ -134,6 +136,7 @@ File upload:
 curl -X POST https://publish.new/api/artifact \
   -F 'title=Premium Report' \
   -F 'file=@./report.pdf' \
+  -F 'previewImage=@./cover.png' \
   -F 'price=5.00' \
   -F 'walletAddress=0xYOUR_WALLET_ADDRESS'
 ```
@@ -302,6 +305,7 @@ publish new \
   --file=./analysis.pdf \
   --title="Q1 Market Analysis" \
   --description="Comprehensive Q1 2026 market analysis" \
+  --preview-image=./cover.png \
   --json
 ```
 
@@ -311,6 +315,7 @@ curl -X POST https://publish.new/api/artifact \
   -F 'title=Q1 Market Analysis' \
   -F 'description=Comprehensive Q1 2026 market analysis' \
   -F 'file=@./analysis.pdf' \
+  -F 'previewImage=@./cover.png' \
   -F 'price=2.00' \
   -F 'walletAddress=0xAGENT_WALLET'
 ```

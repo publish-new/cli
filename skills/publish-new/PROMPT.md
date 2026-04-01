@@ -12,6 +12,7 @@ Install: `npm install -g @publish-new/cli`
 ```bash
 publish new --price=1.50 --author=0xWALLET --content="# Content" --title="Title" --json
 publish new --price=5.00 --author=0xWALLET --file=./report.pdf --title="Report" --json
+publish new --price=1.50 --author=0xWALLET --content="# Content" --title="Title" --preview-image=./cover.png --json
 ```
 
 ### Preview (no side effects)
@@ -57,6 +58,7 @@ Fields:
   file (required*)          — File upload (max 100MB)
   title (optional)          — Used to generate URL slug
   description (optional)    — Short description
+  previewImage (optional)   — Preview image file (JPEG, PNG, GIF, WebP)
   * Provide content OR file, not both
 ```
 
@@ -118,8 +120,8 @@ Status codes: 400 (bad input), 402 (payment required), 404 (not found), 500 (ser
 
 ## Workflow: Publish and sell
 
-**CLI:** `publish new --price=2 --author=0xWALLET --file=./output.pdf --title="Title" --json`
-**HTTP:** `curl -X POST https://publish.new/api/artifact -F 'title=Title' -F 'file=@./output.pdf' -F 'price=2' -F 'walletAddress=0xWALLET'`
+**CLI:** `publish new --price=2 --author=0xWALLET --file=./output.pdf --title="Title" --preview-image=./cover.png --json`
+**HTTP:** `curl -X POST https://publish.new/api/artifact -F 'title=Title' -F 'file=@./output.pdf' -F 'previewImage=@./cover.png' -F 'price=2' -F 'walletAddress=0xWALLET'`
 
 Share the returned slug or URL.
 

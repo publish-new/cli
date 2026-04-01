@@ -15,6 +15,7 @@ export interface Artifact {
   /** Ethereum address that receives payments for this artifact. */
   wallet_address: string
   attachment_id: string | null
+  preview_image_attachment_id: string | null
   created_at: string
   updated_at: string
   /** File attachment metadata, present for file-based artifacts. */
@@ -23,6 +24,13 @@ export interface Artifact {
     originalFilename: string
     mimeType: string
     sizeBytes: number
+  } | null
+  /** Preview image metadata, present when fetching a single artifact. */
+  preview_image?: {
+    id: string
+    gcsBucket: string
+    gcsPath: string
+    mimeType: string
   } | null
 }
 
@@ -85,6 +93,23 @@ async function fetchJson<T>(path: string, init?: RequestInit): Promise<T> {
   return res.json() as Promise<T>
 }
 
+const IMAGE_EXTENSIONS: Record<string, string> = {
+  ".jpg": "image/jpeg",
+  ".jpeg": "image/jpeg",
+  ".png": "image/png",
+  ".gif": "image/gif",
+  ".webp": "image/webp",
+  ".avif": "image/avif",
+  ".svg": "image/svg+xml",
+  ".heic": "image/heic",
+  ".heif": "image/heif",
+}
+
+function inferImageMimeType(filename: string): string {
+  const ext = filename.toLowerCase().replace(/^.*(\.[^.]+)$/, "$1")
+  return IMAGE_EXTENSIONS[ext] || "application/octet-stream"
+}
+
 /**
  * Creates a new gated artifact on publish.new.
  * Submits either text content or a file upload as multipart/form-data.
@@ -93,6 +118,7 @@ async function fetchJson<T>(path: string, init?: RequestInit): Promise<T> {
  * @param opts.description - Optional short description
  * @param opts.content - Markdown text content (mutually exclusive with file)
  * @param opts.file - File to upload with buffer and filename (mutually exclusive with content)
+ * @param opts.previewImage - Optional preview image with buffer and filename
  * @param opts.price - USDC price as a decimal string
  * @param opts.walletAddress - Ethereum address to receive payments
  * @returns The created artifact metadata
@@ -103,6 +129,7 @@ export async function createArtifact(opts: {
   description?: string
   content?: string
   file?: { buffer: Buffer; filename: string }
+  previewImage?: { buffer: Buffer; filename: string }
   price: string
   walletAddress: string
 }): Promise<Artifact> {
@@ -117,6 +144,12 @@ export async function createArtifact(opts: {
     formData.append("file", blob, opts.file.filename)
   } else if (opts.content) {
     formData.append("content", opts.content)
+  }
+
+  if (opts.previewImage) {
+    const mimeType = inferImageMimeType(opts.previewImage.filename)
+    const previewBlob = new Blob([opts.previewImage.buffer], { type: mimeType })
+    formData.append("previewImage", previewBlob, opts.previewImage.filename)
   }
 
   const url = `${resolveBaseUrl()}/api/artifact`

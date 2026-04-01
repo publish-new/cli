@@ -75,6 +75,10 @@ export function registerNewCommand(program: Command): void {
       "Validate inputs and show what would be created",
       false
     )
+    .option(
+      "--preview-image <path>",
+      "Preview image file (JPEG, PNG, GIF, WebP)"
+    )
     .option("--force", "Skip duplicate check and always create", false)
     .addHelpText(
       "after",
@@ -84,7 +88,8 @@ Examples:
   publish new --price=5.00 --author=0xdead --file=./report.pdf --title="Report"
   echo "# Piped" | publish new --price=0.50 --author=0xdead --content=-
   publish new --price=1 --author=0xdead --content="# Test" --dry-run
-  publish new --price=1 --author=0xdead --content="# Test" --force`
+  publish new --price=1 --author=0xdead --content="# Test" --force
+  publish new --price=1.50 --author=0xdead --content="# Hello" --preview-image=./cover.png`
     )
     .action(async (opts) => {
       const globalOpts = program.opts() as OutputOptions
@@ -118,6 +123,15 @@ Examples:
           fileSize = buffer.length
         }
 
+        let previewImage: { buffer: Buffer; filename: string } | undefined
+        if (opts.previewImage) {
+          const previewBuffer = readFileSync(opts.previewImage)
+          previewImage = {
+            buffer: previewBuffer,
+            filename: basename(opts.previewImage),
+          }
+        }
+
         if (opts.dryRun) {
           const preview = {
             dry_run: true,
@@ -129,6 +143,9 @@ Examples:
             ...(fileSize !== undefined && {
               file: opts.file,
               file_size_bytes: fileSize,
+            }),
+            ...(opts.previewImage && {
+              preview_image: opts.previewImage,
             }),
           }
           printResult(preview, globalOpts)
@@ -142,6 +159,9 @@ Examples:
               printHuman(
                 `  File: ${opts.file} (${Math.round(fileSize / 1024)}KB)`
               )
+            }
+            if (opts.previewImage) {
+              printHuman(`  Preview image: ${opts.previewImage}`)
             }
             printHuman(`\nNo changes made.`)
           }
@@ -171,6 +191,7 @@ Examples:
           description: opts.description,
           content,
           file,
+          previewImage,
           price: opts.price,
           walletAddress: opts.author,
         })
