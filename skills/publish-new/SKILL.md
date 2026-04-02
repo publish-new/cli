@@ -77,8 +77,8 @@ Requires a funded wallet with USDC on the chosen chain.
 
 ```bash
 export PRIVATE_KEY=0xYOUR_PRIVATE_KEY
-publish buy my-article-a1b2c3d4 --chain=base --json
-publish buy my-article-a1b2c3d4 --chain=base --output=./downloaded.pdf
+publish buy my-article-a1b2c3d4 --chain=tempo --json
+publish buy my-article-a1b2c3d4 --chain=tempo --output=./downloaded.pdf
 ```
 
 Use `--dry-run` to check the price without paying:
@@ -108,7 +108,7 @@ Use these endpoints directly when you don't have CLI access (e.g. Claude web ses
 
 Base URL: `https://publish.new`
 
-### POST /api/artifact — Create an artifact
+### POST /api/artifact/upload — Create an artifact
 
 Content-Type: `multipart/form-data`
 
@@ -123,7 +123,7 @@ Content-Type: `multipart/form-data`
 | `previewImage` | no | Preview image file (JPEG, PNG, GIF, WebP) |
 
 ```bash
-curl -X POST https://publish.new/api/artifact \
+curl -X POST https://publish.new/api/artifact/upload \
   -F 'title=My Article' \
   -F 'description=A short summary' \
   -F 'content=# Hello World\n\nThis is my article.' \
@@ -133,7 +133,7 @@ curl -X POST https://publish.new/api/artifact \
 
 File upload:
 ```bash
-curl -X POST https://publish.new/api/artifact \
+curl -X POST https://publish.new/api/artifact/upload \
   -F 'title=Premium Report' \
   -F 'file=@./report.pdf' \
   -F 'previewImage=@./cover.png' \
@@ -311,7 +311,7 @@ publish new \
 
 **HTTP:**
 ```bash
-curl -X POST https://publish.new/api/artifact \
+curl -X POST https://publish.new/api/artifact/upload \
   -F 'title=Q1 Market Analysis' \
   -F 'description=Comprehensive Q1 2026 market analysis' \
   -F 'file=@./analysis.pdf' \
@@ -328,7 +328,7 @@ RESULTS=$(publish list --search="dataset" --limit=5 --json)
 SLUG=$(echo "$RESULTS" | jq -r '.artifacts[0].slug')
 publish price "$SLUG" --json
 export PRIVATE_KEY=0xAGENT_KEY
-publish buy "$SLUG" --chain=base --output=./dataset.csv
+publish buy "$SLUG" --chain=tempo --output=./dataset.csv
 ```
 
 **HTTP:**
@@ -346,7 +346,7 @@ curl -s https://publish.new/api/artifact/SLUG/price | jq '.price'
 
 **HTTP:**
 ```bash
-curl -X POST https://publish.new/api/artifact \
+curl -X POST https://publish.new/api/artifact/upload \
   -F 'title=Daily Market Brief' \
   -F 'content=# Market Brief\n\nToday the market moved significantly...' \
   -F 'price=0.50' \

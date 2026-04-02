@@ -28,7 +28,7 @@ publish list
 
 # Buy content
 export PRIVATE_KEY=0xYOUR_KEY
-publish buy my-article-a1b2c3d4 --chain=base
+publish buy my-article-a1b2c3d4 --chain=tempo
 ```
 
 ## Commands
@@ -92,14 +92,14 @@ publish price my-article-a1b2c3d4
 Pay to unlock artifact content via x402.
 
 ```bash
-publish buy my-article-a1b2c3d4 --chain=base
-publish buy my-article-a1b2c3d4 --chain=base --output=./downloaded.pdf
+publish buy my-article-a1b2c3d4 --chain=tempo
+publish buy my-article-a1b2c3d4 --chain=tempo --output=./downloaded.pdf
 publish buy my-article-a1b2c3d4 --dry-run
 ```
 
 | Flag | Default | Description |
 |------|---------|-------------|
-| `--chain <chain>` | base | `tempo`, `base`, or `mainnet` |
+| `--chain <chain>` | tempo | `tempo`, `base`, or `mainnet` |
 | `--currency <address>` | USDC | ERC-20 contract address |
 | `--output <path>` | stdout | Save to file |
 | `--private-key <key>` | `PRIVATE_KEY` env | Wallet private key |
@@ -163,7 +163,7 @@ publish new \
 SLUG=$(publish list --search="dataset" --json | jq -r '.artifacts[0].slug')
 publish price "$SLUG" --json
 export PRIVATE_KEY=0xAGENT_KEY
-publish buy "$SLUG" --chain=base --output=./dataset.csv
+publish buy "$SLUG" --chain=tempo --output=./dataset.csv
 ```
 
 ## Supported chains and currencies

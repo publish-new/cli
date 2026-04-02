@@ -89,7 +89,7 @@ export function registerBuyCommand(program: Command): void {
     .command("buy <slug>")
     .alias("unlock")
     .description("Pay to unlock artifact content via x402")
-    .option("--chain <chain>", "Chain: tempo, base, or mainnet", "base")
+    .option("--chain <chain>", "Chain: tempo, base, or mainnet", "tempo")
     .option(
       "--currency <address>",
       "ERC-20 contract address (defaults to USDC)"

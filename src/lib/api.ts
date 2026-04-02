@@ -152,7 +152,7 @@ export async function createArtifact(opts: {
     formData.append("previewImage", previewBlob, opts.previewImage.filename)
   }
 
-  const url = `${resolveBaseUrl()}/api/artifact`
+  const url = `${resolveBaseUrl()}/api/artifact/upload`
   const res = await fetch(url, {
     method: "POST",
     body: formData,

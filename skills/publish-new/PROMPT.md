@@ -32,8 +32,8 @@ publish price SLUG --json
 ### Buy
 ```bash
 export PRIVATE_KEY=0xKEY
-publish buy SLUG --chain=base --json
-publish buy SLUG --chain=base --output=./file.pdf
+publish buy SLUG --chain=tempo --json
+publish buy SLUG --chain=tempo --output=./file.pdf
 ```
 
 ### Idempotency
@@ -48,7 +48,7 @@ Base URL: `https://publish.new`
 
 ### Create artifact
 ```
-POST /api/artifact
+POST /api/artifact/upload
 Content-Type: multipart/form-data
 
 Fields:
@@ -64,7 +64,7 @@ Fields:
 
 Example:
 ```bash
-curl -X POST https://publish.new/api/artifact \
+curl -X POST https://publish.new/api/artifact/upload \
   -F 'title=My Article' \
   -F 'content=# Hello World' \
   -F 'price=1.50' \
@@ -121,7 +121,7 @@ Status codes: 400 (bad input), 402 (payment required), 404 (not found), 500 (ser
 ## Workflow: Publish and sell
 
 **CLI:** `publish new --price=2 --author=0xWALLET --file=./output.pdf --title="Title" --preview-image=./cover.png --json`
-**HTTP:** `curl -X POST https://publish.new/api/artifact -F 'title=Title' -F 'file=@./output.pdf' -F 'previewImage=@./cover.png' -F 'price=2' -F 'walletAddress=0xWALLET'`
+**HTTP:** `curl -X POST https://publish.new/api/artifact/upload -F 'title=Title' -F 'file=@./output.pdf' -F 'previewImage=@./cover.png' -F 'price=2' -F 'walletAddress=0xWALLET'`
 
 Share the returned slug or URL.
 
@@ -130,7 +130,7 @@ Share the returned slug or URL.
 **CLI:**
 1. `publish list --search="topic" --json` → get slug
 2. `publish price SLUG --json` → check price
-3. `publish buy SLUG --chain=base --output=./file.pdf`
+3. `publish buy SLUG --chain=tempo --output=./file.pdf`
 
 **HTTP:**
 1. `curl 'https://publish.new/api/artifact?search=topic'` → get slug
